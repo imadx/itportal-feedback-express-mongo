@@ -1,0 +1,18 @@
+.is-uppercase{
+	text-transform: uppercase;
+}
+
+.is-kerned{
+	letter-spacing:2pt;
+}
+.is-flex{
+	display: flex;
+}
+.is-statistic{
+	align-items: baseline;
+	justify-content: center;
+	font-size: 16pt;
+}
+.is-statistic i.level-item{
+	margin-right: 6px !important;
+}
