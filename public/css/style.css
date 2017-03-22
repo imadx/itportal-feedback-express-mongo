@@ -10,7 +10,8 @@
 	border: solid 1.3px #eee;
 	filter: grayscale(100);
 	cursor: pointer;
-	transition: all .3s;
+	opacity: 0;
+	transition: opacity .3s;
 
 }
 .students .student:hover,
@@ -57,6 +58,7 @@
 	border-radius: 40px;
 	width: 60px;
     border: solid 2px #bfbfbf;
+    height: 60px;
 }
 .field.ratings i.fa.fa-star{
 	font-size: 36pt;

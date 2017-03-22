@@ -1,216 +1,220 @@
-				var app = new Vue({
-					el: '#app',
-					components: {
-						Multiselect: window.VueMultiselect.default
-					},
-					data: {
-						students: [],
-						submitted_students: ['E12206'],
-						companies: [],
-						skills: [],
-						skills_duringTraining: [],
-						activeStudent: null,
-						activeCompany: null,
-						rating: 0,
+var app = new Vue({
+	el: '#app',
+	components: {
+		Multiselect: window.VueMultiselect.default
+	},
+	data: {
+		students: [],
+		submitted_students: ['E12206'],
+		companies: [],
+		skills: [],
+		skills_duringTraining: [],
+		activeStudent: null,
+		activeCompany: null,
+		rating: 0,
 
-						interviews: [
+		interviews: [
 
-						],
-						new_interview_company: null,
-						new_interview_state: null,
+		],
+		new_interview_company: null,
+		new_interview_state: null,
 
-						messageVisible: false,
-						messageText: 'Thank you for your valuable time!'
-					},
-					methods: {
-						getFormattedENumber: function(eNumber){
-							if(eNumber == null){
-								return null;
-							}
-							return eNumber.substring(0,1) + '/' + eNumber.substring(1,3) + '/' + eNumber.substring(3);
-						},
-						selectStudent: function(eNumber){
-							this.activeStudent = eNumber;
-						},
-						clearStudent: function(){
-							this.activeStudent = null;
-						},
-						initStudents: function(){
-							axios.get('./data/students.json')
-							.then(function(response){
-								console.log(response);
-								app.students = response.data;
-							})
-							.catch(function(error){
-								console.log(error);
-							});
-						},
-						initCompanies: function(){
-							axios.get('./data/companies.json')
-							.then(function(response){
-								console.log(response);
-								app.companies = response.data;
-							})
-							.catch(function(error){
-								console.log(error);
-							});
-						},
-						initSkills: function(){
-							axios.get('./data/skills.json')
-							.then(function(response){
-								console.log(response);
-								app.skills = response.data;
-							})
-							.catch(function(error){
-								console.log(error);
-							});
-						},
-						getStudentsSubmitted: function(){
-							
-							axios.get('./studentinfo/submitted')
-							.then(function(response){
-								console.log(response);
-								app.submitted_students = _.map(response.data, 'activeStudent');
-							})
-							.catch(function(error){
-								console.log(error);
-							});
+		messageVisible: false,
+		messageText: 'Thank you for your valuable time!'
+	},
+	methods: {
+		getFormattedENumber: function(eNumber){
+			if(eNumber == null){
+				return null;
+			}
+			return eNumber.substring(0,1) + '/' + eNumber.substring(1,3) + '/' + eNumber.substring(3);
+		},
+		selectStudent: function(eNumber){
+			this.activeStudent = eNumber;
+		},
+		clearStudent: function(){
+			this.activeStudent = null;
+		},
+		initStudents: function(){
+			axios.get('./data/students.json')
+			.then(function(response){
+				// console.log(response);
+				app.students = response.data;
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+		},
+		initCompanies: function(){
+			axios.get('./data/companies.json')
+			.then(function(response){
+				// console.log(response);
+				app.companies = response.data;
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+		},
+		initSkills: function(){
+			axios.get('./data/skills.json')
+			.then(function(response){
+				// console.log(response);
+				app.skills = response.data;
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+		},
+		getStudentsSubmitted: function(){
+			
+			axios.get('./studentinfo/submitted')
+			.then(function(response){
+				console.log(response);
+				app.submitted_students = _.map(response.data, 'activeStudent');
+			})
+			.catch(function(error){
+				console.log(error);
+			});
 
-						},
-						getRatingText: function(){
-							switch(this.rating){
-								case 1: return 'Bad!';
-								case 2: return 'Below Average';
-								case 3: return 'Average';
-								case 4: return 'Above Average';
-								case 5: return 'Great!';
-								default: return 'Not rated yet'
-							}
-						},
-						addSkill: function(skill){
-							this.skills_duringTraining.push(skill)
-							this.skills.push(skill)
+		},
+		getRatingText: function(){
+			switch(this.rating){
+				case 1: return 'Bad!';
+				case 2: return 'Below Average';
+				case 3: return 'Average';
+				case 4: return 'Above Average';
+				case 5: return 'Great!';
+				default: return 'Not rated yet'
+			}
+		},
+		addSkill: function(skill){
+			this.skills_duringTraining.push(skill)
+			this.skills.push(skill)
 
-						},
-						addCompany: function(company){
-							this.companies.push(company);
-							this.activeCompany = company;
+		},
+		addCompany: function(company){
+			this.companies.push(company);
+			this.activeCompany = company;
 
-						},
-						setTrainingCompany: function(_company){
-							this.activeCompany = _company;
+		},
+		setTrainingCompany: function(_company){
+			this.activeCompany = _company;
 
-						},
-						setCompanyRating: function(_rating){
-							this.rating = _rating;
+		},
+		setCompanyRating: function(_rating){
+			this.rating = _rating;
 
-						},
-						setNewInterview: function(_state){
+		},
+		setNewInterview: function(_state){
 
-							this.new_interview_state = _state;
-							if(_.isNil(this.new_interview_company)){
-								return;
-							}
-							this.interviews.push({
-								'company': this.new_interview_company,
-								'state': _state
-							});
+			this.new_interview_state = _state;
+			if(_.isNil(this.new_interview_company)){
+				return;
+			}
+			this.interviews.push({
+				'company': this.new_interview_company,
+				'state': _state
+			});
 
-							this.new_interview_company = null;
-							this.new_interview_state = null;
-						},
-						setExistingInterview: function(_id, _state){
-							this.interviews[_id].state = _state;
-						},
-						isStudentSubmitted: function(student){
-							if(_.indexOf(this.submitted_students, student) >= 0){
-								return true;
-							}
-							return false;
-						},
-						messageDismiss: function(){
-							this.messageVisible = false;
-						},
-						messageShow: function(message){
-							if(app.messageVisible){
-								app.messageVisible = false;
-								setTimeout(function(){
+			this.new_interview_company = null;
+			this.new_interview_state = null;
+		},
+		setExistingInterview: function(_id, _state){
+			this.interviews[_id].state = _state;
+		},
+		isStudentSubmitted: function(student){
+			if(_.indexOf(this.submitted_students, student) >= 0){
+				return true;
+			}
+			return false;
+		},
+		messageDismiss: function(){
+			this.messageVisible = false;
+		},
+		messageShow: function(message){
+			if(app.messageVisible){
+				app.messageVisible = false;
+				setTimeout(function(){
 
-									app.messageText = message.toString()
-									app.messageVisible = true;
+					app.messageText = message.toString()
+					app.messageVisible = true;
 
-								}, 300);
-							} else {
-								this.messageText = message.toString()
-								this.messageVisible = true;
-							}
-							setTimeout(function(){
-								app.messageVisible = false;
-								setTimeout(function(){
+				}, 300);
+			} else {
+				this.messageText = message.toString()
+				this.messageVisible = true;
+			}
+			setTimeout(function(){
+				app.messageVisible = false;
+				setTimeout(function(){
 
-									app.messageText = "It's Feedback time!";
+					app.messageText = "It's Feedback time!";
 
-								}, 300);
-							}, 3000)
-						}, 
-						submitData: function(){
+				}, 300);
+			}, 3000)
+		}, 
+		submitData: function(){
 
-							if(_.isNil(this.activeStudent)){
-								app.messageShow('Please select your E Number');
-								return;
-							}
+			if(_.isNil(this.activeStudent)){
+				app.messageShow('Please select your E Number');
+				return;
+			}
 
-							if(_.isNil(this.activeCompany)){
-								app.messageShow('Please select your training company');
-								return;
-							}
+			if(_.isNil(this.activeCompany)){
+				app.messageShow('Please select your training company');
+				return;
+			}
 
-							if(this.rating == 0){
-								app.messageShow('Please rate your training company on a scale from 1 to 5');
-								return;
-							}
+			if(this.rating == 0){
+				app.messageShow('Please rate your training company on a scale from 1 to 5');
+				return;
+			}
 
-							var data = {
-								'skills_duringTraining': this.skills_duringTraining,
-								'activeStudent': this.activeStudent,
-								'activeCompany': this.activeCompany,
-								'rating': this.rating,
-								'interviews': this.interviews,
-							}
+			var data = {
+				'skills_duringTraining': this.skills_duringTraining,
+				'activeStudent': this.activeStudent,
+				'activeCompany': this.activeCompany,
+				'rating': this.rating,
+				'interviews': this.interviews,
+			}
 
-							
-							app.messageShow('Submitting.. Please wait.');
-							axios.post('/studentinfo', data)
-							.then(function(response){
-								app.messageShow('Thank you for your support!');
-								setTimeout(function(){
-										location.reload();
-									}, 2000);
-							})
-							.catch(function(error){
-								app.messageShow('Looks like something went wrong...');
-								console.log(error);
+			
+			app.messageShow('Submitting.. Please wait.');
+			axios.post('/studentinfo', data)
+			.then(function(response){
+				app.messageShow('Thank you for your support!');
+				setTimeout(function(){
+						location.reload();
+					}, 2000);
+			})
+			.catch(function(error){
+				app.messageShow('Looks like something went wrong...');
+				console.log(error);
 
-							})
-						}
-					},
-					created: function(){
-						this.initStudents();
-						this.initCompanies();
-						this.initSkills();
-						this.getStudentsSubmitted();
+			})
+		},
+		fadeIn: function(student){
+			var el = document.getElementById('student_' + student);
+			el.style.opacity = 1;
+		}
+	},
+	created: function(){
+		this.initStudents();
+		this.initCompanies();
+		this.initSkills();
+		this.getStudentsSubmitted();
 
-						showPage();
-					}
-				});
+		showPage();
+	}
+});
 
-				function showPage(){
-					var toShow = document.getElementsByClassName('to-show');
-					console.log(toShow);
-					for (var i = 0; i < toShow.length; i++) {
-						toShow[i].style.display = '';
-					}
+function showPage(){
+	var toShow = document.getElementsByClassName('to-show');
+	// console.log(toShow);
+	for (var i = 0; i < toShow.length; i++) {
+		toShow[i].style.display = '';
+	}
 
-					var page = document.getElementById('app');
-					page.style.opacity = 1;
-				}
+	var page = document.getElementById('app');
+	page.style.opacity = 1;
+}

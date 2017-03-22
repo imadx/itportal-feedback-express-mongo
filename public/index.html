@@ -9,7 +9,13 @@
 		<link rel="stylesheet" href="./styles/font-awesome.min.css">
 		<link rel="stylesheet" href="./styles/helpers.css">
 		<link rel="stylesheet" href="./css/multiselect-vue.css">
-		<script src="js/main.js"></script>
+
+
+		<script src="./js/dependencies/axios.min.js"></script>
+		<script src="./js/dependencies/lodash.min.js"></script>
+		<script src="./js/dependencies/vue.js"></script>
+		<script src="./js/dependencies/multiselect-vue.js"></script>
+
 	</head>
 	<body>
 		<div id="app" class="container to-show" style="opacity: 0;">
@@ -47,11 +53,12 @@
 				<span class="label">Please select your E Number</span>
 				<div class="students">
 					<div class="student"
+						:id="'student_' + student"
 						v-for="student in students"
 						v-bind:class="{active: activeStudent==student, success: isStudentSubmitted(student)}"
 						@click="selectStudent(student)"
 						>
-						<img v-bind:src="'./img/students/' + student + '-150x150.jpg'" alt="">
+						<img :id="'img_' + student" v-bind:src="'./img/students/' + student + '-150x150.jpg'" alt="" @load="fadeIn(student)">
 						<span>{{getFormattedENumber(student)}}</span>
 					</div>
 				</div>
@@ -127,10 +134,6 @@
 					<div @click="submitData()" class="button is-fullwidth is-primary is-medium"><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;Submit</div>
 				</div>
 			</div>
-			<script src="./js/dependencies/axios.min.js"></script>
-			<script src="./js/dependencies/lodash.min.js"></script>
-			<script src="./js/dependencies/vue.js"></script>
-			<script src="./js/dependencies/multiselect-vue.js"></script>
 			
 			<script src="./js/main.js"></script>
 		</body>
