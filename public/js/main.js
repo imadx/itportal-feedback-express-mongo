@@ -20,7 +20,8 @@ var app = new Vue({
 		new_interview_state: null,
 
 		messageVisible: false,
-		messageText: 'Thank you for your valuable time!'
+		messageText: 'Thank you for your valuable time!',
+		messageHideTimeout: null,
 	},
 	methods: {
 		getFormattedENumber: function(eNumber){
@@ -69,7 +70,7 @@ var app = new Vue({
 			
 			axios.get('./studentinfo/submitted')
 			.then(function(response){
-				console.log(response);
+				// console.log(response);
 				app.submitted_students = _.map(response.data, 'activeStudent');
 			})
 			.catch(function(error){
@@ -144,7 +145,8 @@ var app = new Vue({
 				this.messageText = message.toString()
 				this.messageVisible = true;
 			}
-			setTimeout(function(){
+			clearTimeout(this.messageHideTimeout);
+			this.messageHideTimeout = setTimeout(function(){
 				app.messageVisible = false;
 				setTimeout(function(){
 
