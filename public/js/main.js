@@ -32,6 +32,9 @@ var app = new Vue({
 		},
 		selectStudent: function(eNumber){
 			this.activeStudent = eNumber;
+			setTimeout(function(){
+				scrollTo(document.body, 0, 300);
+			}, 400);
 		},
 		clearStudent: function(){
 			this.activeStudent = null;
@@ -219,4 +222,16 @@ function showPage(){
 
 	var page = document.getElementById('app');
 	page.style.opacity = 1;
+}
+
+function scrollTo(element, to, duration) {
+    if (duration <= 0) return;
+    var difference = to - element.scrollTop;
+    var perTick = difference / duration * 10;
+
+    setTimeout(function() {
+        element.scrollTop = element.scrollTop + perTick;
+        if (element.scrollTop === to) return;
+        scrollTo(element, to, duration - 10);
+    }, 10);
 }
