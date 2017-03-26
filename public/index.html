@@ -112,9 +112,11 @@
 								v-model="interview.company" 
 								:options="companies"
 								></multiselect>
-								<span class="button is-interview-button" :class="{'is-primary': (interview.state==='notInterviewed')}" @click="setExistingInterview(index, 'notInterviewed')">Not Interviewed</span>
-								<span class="button is-interview-button" :class="{'is-primary': (interview.state==='accepted')}" @click="setExistingInterview(index, 'accepted')">Accepted</span>
-								<span class="button is-interview-button" :class="{'is-primary': (interview.state==='rejected')}" @click="setExistingInterview(index, 'rejected')">Rejected</span>
+								<div class="interview-buttons">
+									<span class="button is-interview-button" :class="{'is-primary': (interview.state==='notInterviewed')}" @click="setExistingInterview(index, 'notInterviewed')">Not Interviewed</span>
+									<span class="button is-interview-button" :class="{'is-primary': (interview.state==='accepted')}" @click="setExistingInterview(index, 'accepted')" style="margin: 3px 5px;">Accepted</span>
+									<span class="button is-interview-button" :class="{'is-primary': (interview.state==='rejected')}" @click="setExistingInterview(index, 'rejected')">Rejected</span>
+								</div>
 							</div>
 							<div class="interview level">
 								<multiselect 
@@ -122,9 +124,11 @@
 								v-model="new_interview_company" 
 								:options="companies"
 								></multiselect>
-								<span class="button is-interview-button" :class="{'is-primary': (new_interview_state==='notInterviewed')}" @click="setNewInterview('notInterviewed')">Not Interviewed</span>
-								<span class="button is-interview-button" :class="{'is-primary': (new_interview_state==='accepted')}" @click="setNewInterview('accepted')">Accepted</span>
-								<span class="button is-interview-button" :class="{'is-primary': (new_interview_state==='rejected')}" @click="setNewInterview('rejected')">Rejected</span>
+								<div class="interview-buttons">
+									<span class="button is-interview-button" :class="{'is-primary': (new_interview_state==='notInterviewed')}" @click="setNewInterview('notInterviewed')">Not Interviewed</span>
+									<span class="button is-interview-button is-middle" :class="{'is-primary': (new_interview_state==='accepted')}" @click="setNewInterview('accepted')">Accepted</span>
+									<span class="button is-interview-button" :class="{'is-primary': (new_interview_state==='rejected')}" @click="setNewInterview('rejected')">Rejected</span>
+								</div>
 							</div>
 						</div>
 					</div>

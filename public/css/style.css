@@ -1,5 +1,12 @@
 *{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
-
+.section{
+	padding: 2rem 1.5rem !important;
+}
+.students{
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 .students .student{
 	width: 80px;
 	display: inline-block;
@@ -78,7 +85,6 @@
 	width: auto;
 }
 .interview .button.is-interview-button{
-	margin-left: 10px;
 	font-size: 1rem;
     padding: 1.27rem;
 }
@@ -126,4 +132,43 @@
 	transform: translateX(-50%) translateY(-25px) !important;
 	opacity: 0 !important;
 
+}
+
+.interview-buttons{
+	display: flex;
+	flex-grow: 1;
+	justify-content: center;
+		margin-left: 10px;
+
+}
+.button.is-primary{
+	background-color: #41b883 !important;
+}
+a{
+	color: #41b883 !important;
+}
+@media screen and (max-width: 768px) {
+	.interview-buttons{
+		margin-left: 0px;
+	}
+	.interview .button.is-interview-button{
+		margin-top: 3px;
+		flex-grow: 1;
+	}
+}
+@media screen and (max-width: 375px) {
+	
+	.interview-buttons{
+		flex-direction: column;
+
+	}
+	.interview .button.is-interview-button{
+		align-self:stretch;
+	}
+}
+@media screen and (min-width: 376px) {
+	.is-middle{
+		margin-left: 4px;
+		margin-right: 4px;
+	}
 }
