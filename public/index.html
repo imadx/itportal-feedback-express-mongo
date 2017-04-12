@@ -34,7 +34,7 @@
 				<img src="./img/logo.png" alt="">
 				<transition name="slide-fade">
 				<template v-if="activeStudent">
-					<div class="level-right">
+					<div class="level-right student-summary">
 						<img class="level-item profile-picture" v-bind:src="'./img/students/' + activeStudent + '-150x150.jpg'" alt="">
 						<div class="level-item user-info">
 							<p class="user">Hello, {{getFormattedENumber(activeStudent)}}</p>
@@ -135,102 +135,70 @@
 			</div>
 
 			<div id="details" class="section">
-				<h1 class="title">Your Details</h1>
-				<div class="extracurricular">
-					<div class="field">
-						<span class="label">Extra Curricular Activities</span>
-						<multiselect 
-						v-model="extracurriculars" 
-						:options="extracurricular"
-						:multiple="true"
-						tag-placeholder="Add Extra Curricular Activities"
-						placeholder="Add Extra Curricular Activities"
-						:taggable="true"
-						@tag="addextracurricular"
-						></multiselect>
-					</div>
-				</div>
-
-				<br>
-
-				<div class="cocurricular">
-					<div class="field">
-						<span class="label">Co-Curricular Activities</span>
-						<multiselect 
-						v-model="cocurriculars" 
-						:options="cocurricular"
-						:multiple="true"
-						tag-placeholder="Add Co-Curricular Activities"
-						placeholder="Add Co-Activities"
-						:taggable="true"
-						@tag="addcocurricular"
-						></multiselect>
-					</div>
-				</div>
-
-				<br>
+				<h1 class="title">Your Internship</h1>
 
 				<div class="attitudetohire">
 					<div class="field">
-						<span class="label">Special Attitudes of Yours to Hire You</span>
+						<span class="label">Why do you think they (the company) hired you?</span>
 						<multiselect 
-						v-model="attitudestohire" 
-						:options="attitudetohire"
+						v-model="attitudeToHire_selected" 
+						:options="attitudeToHire_list"
 						:multiple="true"
-						tag-placeholder="Add Attitudes to hire you"
-						placeholder="Add Attitudes to hire you"
+						tag-placeholder="Add this attitude"
+						placeholder="Search or type in what matches you"
 						:taggable="true"
-						@tag="addattitude"
+						@tag="addAttitudeToHire"
 						></multiselect>
 					</div>
 				</div>
 
 				<br>
 
-				<div class="attitudes">
-					<div class="field ratings">
-						<label class="label">Your Attitudes within the company according to you</label>
-						<div class="column">
-							<label class="label" style="margin-left:20px">Punctuality 
-							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setpunctualityrating(1)" style="margin-left:55px"></i>
-							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setpunctualityrating(2)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setpunctualityrating(3)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setpunctualityrating(4)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setpunctualityrating(5)"></i></span></label>
-						</div>
-						<div class="column">
-							<label class="label" style="margin-left:20px;">IQ 
-							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setIQrating(1)" style="margin-left:115px"></i>
-							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setIQrating(2)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setIQrating(3)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setIQrating(4)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setIQrating(5)"></i></span></label>
-						</div>
-						<div class="column">
-							<label class="label" style="margin-left:20px">Leadership Quality 
-							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setleadershipskillsrating(1)" style="margin-left:8px"></i>
-							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setleadershipskillsrating(2)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setleadershipskillsrating(3)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setleadershipskillsrating(4)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setleadershipskillsrating(5)"></i></span></label>
-						</div>
-						<div class="column">
-							<label class="label" style="margin-left:20px">GPA 
-							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setGPAratings(1)" style="margin-left:105px"></i>
-							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setGPAratings(2)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setGPAratings(3)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setGPAratings(4)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setGPAratings(5)"></i></span></label>
-						</div>
-						<div class="column">
-							<label class="label" style="margin-left:20px">Softskills
-							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setsoftskillsrating(1)" style="margin-left:73px"></i>
-							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setsoftskillsrating(2)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setsoftskillsrating(3)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setsoftskillsrating(4)"></i>
-							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setsoftskillsrating(5)"></i></span></label>
-						</div>
-					</div>
+				<label class="label" style="margin-top: 20pt; margin-bottom: 20pt;">How do you rate yourself during the internship? (in your perspective)</label>
+				
+				<div class="field ratings inline">
+					<span class="label">Punctuality</span>
+					<i class="fa fa-star" :class="{'active': ratingPunctuality>=1}" @click="setPunctualityRating(1)"></i>
+					<i class="fa fa-star" :class="{'active': ratingPunctuality>=2}" @click="setPunctualityRating(2)"></i>
+					<i class="fa fa-star" :class="{'active': ratingPunctuality>=3}" @click="setPunctualityRating(3)"></i>
+					<i class="fa fa-star" :class="{'active': ratingPunctuality>=4}" @click="setPunctualityRating(4)"></i>
+					<i class="fa fa-star" :class="{'active': ratingPunctuality>=5}" @click="setPunctualityRating(5)"></i>
+				</div>
+				
+				<div class="field ratings inline">
+					<span class="label">IQ</span>
+					<i class="fa fa-star" :class="{'active': ratingIQ>=1}" @click="setIQRating(1)"></i>
+					<i class="fa fa-star" :class="{'active': ratingIQ>=2}" @click="setIQRating(2)"></i>
+					<i class="fa fa-star" :class="{'active': ratingIQ>=3}" @click="setIQRating(3)"></i>
+					<i class="fa fa-star" :class="{'active': ratingIQ>=4}" @click="setIQRating(4)"></i>
+					<i class="fa fa-star" :class="{'active': ratingIQ>=5}" @click="setIQRating(5)"></i>
+				</div>
+				
+				<div class="field ratings inline">
+					<span class="label">Leadership Qualities</span>
+					<i class="fa fa-star" :class="{'active': ratingLeadership>=1}" @click="setLeadershipRating(1)"></i>
+					<i class="fa fa-star" :class="{'active': ratingLeadership>=2}" @click="setLeadershipRating(2)"></i>
+					<i class="fa fa-star" :class="{'active': ratingLeadership>=3}" @click="setLeadershipRating(3)"></i>
+					<i class="fa fa-star" :class="{'active': ratingLeadership>=4}" @click="setLeadershipRating(4)"></i>
+					<i class="fa fa-star" :class="{'active': ratingLeadership>=5}" @click="setLeadershipRating(5)"></i>
+				</div>
+				
+				<div class="field ratings inline">
+					<span class="label">Technical Skills</span>
+					<i class="fa fa-star" :class="{'active': ratingTechnicalSkills>=1}" @click="setTechnicalSkillsRating(1)"></i>
+					<i class="fa fa-star" :class="{'active': ratingTechnicalSkills>=2}" @click="setTechnicalSkillsRating(2)"></i>
+					<i class="fa fa-star" :class="{'active': ratingTechnicalSkills>=3}" @click="setTechnicalSkillsRating(3)"></i>
+					<i class="fa fa-star" :class="{'active': ratingTechnicalSkills>=4}" @click="setTechnicalSkillsRating(4)"></i>
+					<i class="fa fa-star" :class="{'active': ratingTechnicalSkills>=5}" @click="setTechnicalSkillsRating(5)"></i>
+				</div>
+				
+				<div class="field ratings inline">
+					<span class="label">Softskills</span>
+					<i class="fa fa-star" :class="{'active': ratingSoftskills>=1}" @click="setSoftskillsRating(1)"></i>
+					<i class="fa fa-star" :class="{'active': ratingSoftskills>=2}" @click="setSoftskillsRating(2)"></i>
+					<i class="fa fa-star" :class="{'active': ratingSoftskills>=3}" @click="setSoftskillsRating(3)"></i>
+					<i class="fa fa-star" :class="{'active': ratingSoftskills>=4}" @click="setSoftskillsRating(4)"></i>
+					<i class="fa fa-star" :class="{'active': ratingSoftskills>=5}" @click="setSoftskillsRating(5)"></i>
 				</div>
 			</div>
 

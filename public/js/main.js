@@ -9,20 +9,18 @@ var app = new Vue({
 		companies: [],
 		skills: [],
 		skills_duringTraining: [],
-		extracurricularactivities: [],
-		extracurriculars: [],
-		cocurricularactivities: [],
-		cocurriculars: [],
-		attitudestohire: [],
-		attitudetohire: [],
+
+		attitudeToHire_list: ["GPA", "Technical Skills", "Softskills", "IQ", "Leadership Qualities", "Punctuality"],
+		attitudeToHire_selected: [],
 		activeStudent: null,
 		activeCompany: null,
+
 		rating: 0,
-		punctualityrating: 0,
-		IQrating: 0,
-		leadershiprating: 0,
-		gparating: 0,
-		softskillrating: 0,
+		ratingPunctuality: 0,
+		ratingIQ: 0,
+		ratingLeadership: 0,
+		ratingTechnicalSkills: 0,
+		ratingSoftskills: 0,
 
 		interviews: [
 
@@ -102,20 +100,13 @@ var app = new Vue({
 				default: return 'Not rated yet'
 			}
 		},
+
 		addSkill: function(skill){
 			this.skills_duringTraining.push(skill);
 			this.skills.push(skill);
 
 		},
-		addextracurricular: function(extracurricular){
-			this.extracurricularactivities.push(extracurricular);
-			this.extracurriculars.push(extracurricular);
-		},
-		addcocurricular: function(cocurricular){
-			this.cocurricularactivities.push(cocurricular);
-			this.cocurriculars.push(cocurricular);
-		},
-		addattitude: function(attitude){
+		addAttitudeToHire: function(attitude){
 			this.attitudestohire.push(attitude);
 			this.attitudetohire.push(attitude);
 		},
@@ -128,24 +119,27 @@ var app = new Vue({
 			this.activeCompany = _company;
 
 		},
+
 		setCompanyRating: function(_rating){
 			this.rating = _rating;
 		},
-		setpunctualityrating: function(_rating){
-			this.punctualityrating = _rating;
+		setPunctualityRating: function(_rating){
+			this.ratingPunctuality = _rating;
 		},
-		setIQrating: function(_rating){
-			this.IQrating = _rating;
+		setIQRating: function(_rating){
+			this.ratingIQ = _rating;
 		},
-		setleadershipskillsrating: function(_rating){
-			this.leadershiprating = _rating;
+		setLeadershipRating: function(_rating){
+			this.ratingLeadership = _rating;
 		},
-		setGPAratings: function(_rating){
-			this.gparating = _rating;
+		setTechnicalSkillsRating: function(_rating){
+			this.ratingTechnicalSkills = _rating;
 		},
-		setsoftskillsrating: function(_rating){
-			this.softskillrating = _rating;
+		setSoftskillsRating: function(_rating){
+			this.ratingSoftskills = _rating;
 		},
+
+
 		setNewInterview: function(_state){
 
 			this.new_interview_state = _state;
@@ -212,20 +206,42 @@ var app = new Vue({
 				return;
 			}
 
+			if(this.ratingPunctuality == 0){
+				app.messageShow('Please rate yourself on your punctuality from 1 to 5');
+				return;
+			}
+			if(this.ratingIQ == 0){
+				app.messageShow('Please rate yourself on your IQ from 1 to 5');
+				return;
+			}
+			if(this.ratingLeadership == 0){
+				app.messageShow('Please rate yourself on your leadership qualities from 1 to 5');
+				return;
+			}
+			if(this.ratingTechnicalSkills == 0){
+				app.messageShow('Please rate yourself on your technical skills from 1 to 5');
+				return;
+			}
+			if(this.ratingSoftskills == 0){
+				app.messageShow('Please rate yourself on your soft skills from 1 to 5');
+				return;
+			}
+
 			var data = {
 				'skills_duringTraining': this.skills_duringTraining,
 				'activeStudent': this.activeStudent,
 				'activeCompany': this.activeCompany,
-				'rating': this.rating,
 				'interviews': this.interviews,
-				'extracurricularactivities': this.extracurricularactivities,
-				'cocurricularactivities': this.cocurricularactivities,
-				'attitudestohire': this.attitudestohire,
-				'punctualityrating': this.punctualityrating,
-				'IQrating': this.IQrating,
-				'leadershiprating': this.leadershiprating,
-				'gparating': this.gparating,
-				'softskillrating': this.softskillrating,
+
+				'why_hired': this.attitudeToHire_selected,
+
+				'rating_company': this.rating,
+
+				'rating_Punctuality': this.ratingPunctuality,
+				'rating_IQ': this.ratingIQ,
+				'rating_Leadership': this.ratingLeadership,
+				'rating_TechnicalSkill': this.ratingTechnicalSkill,
+				'rating_Softskills': this.ratingSoftskills,
 			}
 
 			

@@ -5,7 +5,6 @@ const MongoClient = require('mongodb').MongoClient;
 
 var db;
 var MONGO_URL = process.env.MONGODB_URI;
-// var MONGO_URL = 'mongodb://heroku_mf5mtwtk_user:heroku_mf5mtwtk_user@ds137230.mlab.com:37230/heroku_mf5mtwtk';
 
 MongoClient.connect(MONGO_URL, (err, database) => {
     if (err) return console.log(err)

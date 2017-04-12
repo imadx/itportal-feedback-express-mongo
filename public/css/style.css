@@ -147,6 +147,17 @@
 a{
 	color: #41b883 !important;
 }
+
+.field.ratings.inline{
+	display: flex;
+	flex-wrap: wrap;
+    align-items: center;
+}
+
+.field.ratings.inline .label{
+	width: 30%;
+	max-width: 180px;
+}
 @media screen and (max-width: 768px) {
 	.interview-buttons{
 		margin-left: 0px;
@@ -154,6 +165,17 @@ a{
 	.interview .button.is-interview-button{
 		margin-top: 3px;
 		flex-grow: 1;
+	}
+
+}
+@media screen and (max-width: 1024px) {
+	.student-summary{
+		display: flex;
+		flex-direction: column;
+		margin-top: 10px;
+	}
+	.student-summary .level-item.button{
+		margin-left: 0 !important;
 	}
 }
 @media screen and (max-width: 375px) {
@@ -164,6 +186,13 @@ a{
 	}
 	.interview .button.is-interview-button{
 		align-self:stretch;
+	}
+	
+	.field.ratings.inline .label{
+		width: 100% !important;
+		max-width: 100% !important;
+		display: block;
+		box-sizing: border-box;
 	}
 }
 @media screen and (min-width: 376px) {
