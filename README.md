@@ -1,10 +1,12 @@
-# Installation
+# Feedback form for Industrial Training Portal
+
+## Installation
 
 To use your local mongodb server, set `MONGODB_URI` environment variable.
 
-## Database configuration
+### Database configuration
 
-### This app needs a mongodb server configured, to function properly.
+#### This app needs a mongodb server configured, to function properly.
 
 To install a local mongodb server instance.
 
@@ -15,7 +17,7 @@ To install a local mongodb server instance.
 set MONGODB_URI=mongodb://127.0.0.1 # local mongodb server
 ```
 
-#### Optional
+##### Optional
 You can connect to the online database by setting the appropriate environment variables as follows.
 
 ```bash
@@ -23,7 +25,7 @@ set MONGODB_URI=mongodb://heroku_mf5mtwtk:dj45qp59p8436qm44v9dgd67ve@ds137230.ml
 ```
 
 
-### Run the application
+#### Run the application
 
 To run the NodeJS express application.
 
