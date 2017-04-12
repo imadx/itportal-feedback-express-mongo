@@ -9,9 +9,20 @@ var app = new Vue({
 		companies: [],
 		skills: [],
 		skills_duringTraining: [],
+		extracurricularactivities: [],
+		extracurriculars: [],
+		cocurricularactivities: [],
+		cocurriculars: [],
+		attitudestohire: [],
+		attitudetohire: [],
 		activeStudent: null,
 		activeCompany: null,
 		rating: 0,
+		punctualityrating: 0,
+		IQrating: 0,
+		leadershiprating: 0,
+		gparating: 0,
+		softskillrating: 0,
 
 		interviews: [
 
@@ -92,9 +103,21 @@ var app = new Vue({
 			}
 		},
 		addSkill: function(skill){
-			this.skills_duringTraining.push(skill)
-			this.skills.push(skill)
+			this.skills_duringTraining.push(skill);
+			this.skills.push(skill);
 
+		},
+		addextracurricular: function(extracurricular){
+			this.extracurricularactivities.push(extracurricular);
+			this.extracurriculars.push(extracurricular);
+		},
+		addcocurricular: function(cocurricular){
+			this.cocurricularactivities.push(cocurricular);
+			this.cocurriculars.push(cocurricular);
+		},
+		addattitude: function(attitude){
+			this.attitudestohire.push(attitude);
+			this.attitudetohire.push(attitude);
 		},
 		addCompany: function(company){
 			this.companies.push(company);
@@ -107,7 +130,21 @@ var app = new Vue({
 		},
 		setCompanyRating: function(_rating){
 			this.rating = _rating;
-
+		},
+		setpunctualityrating: function(_rating){
+			this.punctualityrating = _rating;
+		},
+		setIQrating: function(_rating){
+			this.IQrating = _rating;
+		},
+		setleadershipskillsrating: function(_rating){
+			this.leadershiprating = _rating;
+		},
+		setGPAratings: function(_rating){
+			this.gparating = _rating;
+		},
+		setsoftskillsrating: function(_rating){
+			this.softskillrating = _rating;
 		},
 		setNewInterview: function(_state){
 
@@ -181,6 +218,14 @@ var app = new Vue({
 				'activeCompany': this.activeCompany,
 				'rating': this.rating,
 				'interviews': this.interviews,
+				'extracurricularactivities': this.extracurricularactivities,
+				'cocurricularactivities': this.cocurricularactivities,
+				'attitudestohire': this.attitudestohire,
+				'punctualityrating': this.punctualityrating,
+				'IQrating': this.IQrating,
+				'leadershiprating': this.leadershiprating,
+				'gparating': this.gparating,
+				'softskillrating': this.softskillrating,
 			}
 
 			

@@ -76,69 +76,168 @@
 						:taggable="true"
 						@tag="addCompany"
 						></multiselect>
-					</div>
-					<br>
-					<div class="field">
-						<span class="label">Skills used during training</span>
-						<multiselect 
-						v-model="skills_duringTraining" 
-						:options="skills"
-						:multiple="true"
-						tag-placeholder="Add this skill"
-						placeholder="Search for your skills"
-						:taggable="true"
-						@tag="addSkill"
-						></multiselect>
-					</div>
-					<br>
-					<div class="field ratings">
-
-						<span class="label">Rate your training program <span class="ratingStatus">[{{getRatingText()}}]</span></span>
-						<i class="fa fa-star" :class="{'active': rating>=1}" @click="setCompanyRating(1)"></i>
-						<i class="fa fa-star" :class="{'active': rating>=2}" @click="setCompanyRating(2)"></i>
-						<i class="fa fa-star" :class="{'active': rating>=3}" @click="setCompanyRating(3)"></i>
-						<i class="fa fa-star" :class="{'active': rating>=4}" @click="setCompanyRating(4)"></i>
-						<i class="fa fa-star" :class="{'active': rating>=5}" @click="setCompanyRating(5)"></i>
-					</div>
 				</div>
-				<div id="interviews" class="section">
-					<h1 class="title">Your Interviews</h1>
-					<div class="field">
-						<span class="label">Interviews you applied (in <a href="https://www.google.lk/search?q=meaning+of+chronological" title="meaning of chronological" target="blank">chronological</a> order)</span>
-						<div class="interviews">
-							<div class="interview level" v-for="(interview, index) in interviews">
-								<multiselect 
-								class="interview-multiselect"
-								v-model="interview.company" 
-								:options="companies"
-								></multiselect>
-								<div class="interview-buttons">
-									<span class="button is-interview-button" :class="{'is-primary': (interview.state==='notInterviewed')}" @click="setExistingInterview(index, 'notInterviewed')">Not Interviewed</span>
-									<span class="button is-interview-button" :class="{'is-primary': (interview.state==='accepted')}" @click="setExistingInterview(index, 'accepted')" style="margin: 3px 5px;">Accepted</span>
-									<span class="button is-interview-button" :class="{'is-primary': (interview.state==='rejected')}" @click="setExistingInterview(index, 'rejected')">Rejected</span>
-								</div>
+				<br>
+				<div class="field">
+					<span class="label">Skills used during training</span>
+					<multiselect 
+					v-model="skills_duringTraining" 
+					:options="skills"
+					:multiple="true"
+					tag-placeholder="Add this skill"
+					placeholder="Search for your skills"
+					:taggable="true"
+					@tag="addSkill"
+					></multiselect>
+				</div>
+				<br>
+				<div class="field ratings">
+					<span class="label">Rate your training program <span class="ratingStatus">[{{getRatingText()}}]</span></span>
+					<i class="fa fa-star" :class="{'active': rating>=1}" @click="setCompanyRating(1)"></i>
+					<i class="fa fa-star" :class="{'active': rating>=2}" @click="setCompanyRating(2)"></i>
+					<i class="fa fa-star" :class="{'active': rating>=3}" @click="setCompanyRating(3)"></i>
+					<i class="fa fa-star" :class="{'active': rating>=4}" @click="setCompanyRating(4)"></i>
+					<i class="fa fa-star" :class="{'active': rating>=5}" @click="setCompanyRating(5)"></i>
+				</div>
+			</div>
+			<div id="interviews" class="section">
+				<h1 class="title">Your Interviews</h1>
+				<div class="field">
+					<span class="label">Interviews you applied (in <a href="https://www.google.lk/search?q=meaning+of+chronological" title="meaning of chronological" target="blank">chronological</a> order)</span>
+					<div class="interviews">
+						<div class="interview level" v-for="(interview, index) in interviews">
+							<multiselect 
+							class="interview-multiselect"
+							v-model="interview.company" 
+							:options="companies"
+							></multiselect>
+							<div class="interview-buttons">
+								<span class="button is-interview-button" :class="{'is-primary': (interview.state==='notInterviewed')}" @click="setExistingInterview(index, 'notInterviewed')">Not Interviewed</span>
+								<span class="button is-interview-button" :class="{'is-primary': (interview.state==='accepted')}" @click="setExistingInterview(index, 'accepted')" style="margin: 3px 5px;">Accepted</span>
+								<span class="button is-interview-button" :class="{'is-primary': (interview.state==='rejected')}" @click="setExistingInterview(index, 'rejected')">Rejected</span>
 							</div>
-							<div class="interview level">
-								<multiselect 
-								class="interview-multiselect"
-								v-model="new_interview_company" 
-								:options="companies"
-								></multiselect>
-								<div class="interview-buttons">
-									<span class="button is-interview-button" :class="{'is-primary': (new_interview_state==='notInterviewed')}" @click="setNewInterview('notInterviewed')">Not Interviewed</span>
-									<span class="button is-interview-button is-middle" :class="{'is-primary': (new_interview_state==='accepted')}" @click="setNewInterview('accepted')">Accepted</span>
-									<span class="button is-interview-button" :class="{'is-primary': (new_interview_state==='rejected')}" @click="setNewInterview('rejected')">Rejected</span>
-								</div>
+						</div>
+						<div class="interview level">
+							<multiselect 
+							class="interview-multiselect"
+							v-model="new_interview_company" 
+							:options="companies"
+							></multiselect>
+							<div class="interview-buttons">
+								<span class="button is-interview-button" :class="{'is-primary': (new_interview_state==='notInterviewed')}" @click="setNewInterview('notInterviewed')">Not Interviewed</span>
+								<span class="button is-interview-button is-middle" :class="{'is-primary': (new_interview_state==='accepted')}" @click="setNewInterview('accepted')">Accepted</span>
+								<span class="button is-interview-button" :class="{'is-primary': (new_interview_state==='rejected')}" @click="setNewInterview('rejected')">Rejected</span>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="section">
-					<div @click="submitData()" class="button is-fullwidth is-primary is-medium"><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;Submit</div>
+			</div>
+
+			<div id="details" class="section">
+				<h1 class="title">Your Details</h1>
+				<div class="extracurricular">
+					<div class="field">
+						<span class="label">Extra Curricular Activities</span>
+						<multiselect 
+						v-model="extracurriculars" 
+						:options="extracurricular"
+						:multiple="true"
+						tag-placeholder="Add Extra Curricular Activities"
+						placeholder="Add Extra Curricular Activities"
+						:taggable="true"
+						@tag="addextracurricular"
+						></multiselect>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="cocurricular">
+					<div class="field">
+						<span class="label">Co-Curricular Activities</span>
+						<multiselect 
+						v-model="cocurriculars" 
+						:options="cocurricular"
+						:multiple="true"
+						tag-placeholder="Add Co-Curricular Activities"
+						placeholder="Add Co-Activities"
+						:taggable="true"
+						@tag="addcocurricular"
+						></multiselect>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="attitudetohire">
+					<div class="field">
+						<span class="label">Special Attitudes of Yours to Hire You</span>
+						<multiselect 
+						v-model="attitudestohire" 
+						:options="attitudetohire"
+						:multiple="true"
+						tag-placeholder="Add Attitudes to hire you"
+						placeholder="Add Attitudes to hire you"
+						:taggable="true"
+						@tag="addattitude"
+						></multiselect>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="attitudes">
+					<div class="field ratings">
+						<label class="label">Your Attitudes within the company according to you</label>
+						<div class="column">
+							<label class="label" style="margin-left:20px">Punctuality 
+							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setpunctualityrating(1)" style="margin-left:55px"></i>
+							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setpunctualityrating(2)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setpunctualityrating(3)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setpunctualityrating(4)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setpunctualityrating(5)"></i></span></label>
+						</div>
+						<div class="column">
+							<label class="label" style="margin-left:20px;">IQ 
+							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setIQrating(1)" style="margin-left:115px"></i>
+							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setIQrating(2)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setIQrating(3)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setIQrating(4)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setIQrating(5)"></i></span></label>
+						</div>
+						<div class="column">
+							<label class="label" style="margin-left:20px">Leadership Quality 
+							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setleadershipskillsrating(1)" style="margin-left:8px"></i>
+							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setleadershipskillsrating(2)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setleadershipskillsrating(3)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setleadershipskillsrating(4)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setleadershipskillsrating(5)"></i></span></label>
+						</div>
+						<div class="column">
+							<label class="label" style="margin-left:20px">GPA 
+							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setGPAratings(1)" style="margin-left:105px"></i>
+							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setGPAratings(2)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setGPAratings(3)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setGPAratings(4)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setGPAratings(5)"></i></span></label>
+						</div>
+						<div class="column">
+							<label class="label" style="margin-left:20px">Softskills
+							<i class="fa fa-star" :class="{'active': rating>=1}" @click="setsoftskillsrating(1)" style="margin-left:73px"></i>
+							<i class="fa fa-star" :class="{'active': rating>=2}" @click="setsoftskillsrating(2)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=3}" @click="setsoftskillsrating(3)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=4}" @click="setsoftskillsrating(4)"></i>
+							<i class="fa fa-star" :class="{'active': rating>=5}" @click="setsoftskillsrating(5)"></i></span></label>
+						</div>
+					</div>
 				</div>
 			</div>
-			
-			<script src="./js/main.js"></script>
-		</body>
-	</html>
+
+			<div class="section">
+				<div @click="submitData()" class="button is-fullwidth is-primary is-medium"><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;Submit</div>
+			</div>
+		</div>
+		<script src="./js/main.js"></script>
+	</body>
+</html>
