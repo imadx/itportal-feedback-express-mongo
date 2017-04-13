@@ -15,6 +15,9 @@ var app = new Vue({
 		activeStudent: null,
 		activeCompany: null,
 
+		activeCompany_recommendToAnother: null,
+		activeCompany_willJoinAfterDegree: null,
+
 		rating: 0,
 		ratingPunctuality: 0,
 		ratingIQ: 0,
@@ -232,6 +235,9 @@ var app = new Vue({
 				'activeStudent': this.activeStudent,
 				'activeCompany': this.activeCompany,
 				'interviews': this.interviews,
+				
+				'activeCompany_recommendToAnother': this.activeCompany_recommendToAnother,
+				'activeCompany_willJoinAfterDegree': this.activeCompany_willJoinAfterDegree,
 
 				'why_hired': this.attitudeToHire_selected,
 

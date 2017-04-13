@@ -9,31 +9,27 @@
 		<link rel="stylesheet" href="./styles/font-awesome.min.css">
 		<link rel="stylesheet" href="./styles/helpers.css">
 		<link rel="stylesheet" href="./css/multiselect-vue.css">
-
-
 		<script src="./js/dependencies/axios.min.js"></script>
 		<script src="./js/dependencies/lodash.min.js"></script>
 		<script src="./js/dependencies/vue.js"></script>
 		<script src="./js/dependencies/multiselect-vue.js"></script>
-
 	</head>
 	<body>
 		<div id="app" class="container to-show" style="opacity: 0;">
 			<transition name="snackbar-fade">
-			<div id="snackbar"
-				class="to-show"
-				style="display: none;" 
-				v-show="messageVisible"
-				@click="messageDismiss()"
-				>
-				<span class="icon"><i class="fa fa-info"></i></span><span>{{messageText}}</span>
-			</div>
+				<div id="snackbar"
+					class="to-show"
+					style="display: none;"
+					v-show="messageVisible"
+					@click="messageDismiss()"
+					>
+					<span class="icon"><i class="fa fa-info"></i></span><span>{{messageText}}</span>
+				</div>
 			</transition>
 			<div id="infoHeader" class="level is-fullwidth section">
-
 				<img src="./img/logo.png" alt="">
 				<transition name="slide-fade">
-				<template v-if="activeStudent">
+					<template v-if="activeStudent">
 					<div class="level-right student-summary">
 						<img class="level-item profile-picture" v-bind:src="'./img/students/' + activeStudent + '-150x150.jpg'" alt="">
 						<div class="level-item user-info">
@@ -42,46 +38,46 @@
 						</div>
 						<span class="level-item button" @click="clearStudent()">Change</span>
 					</div>
-				</template>
+					</template>
 				</transition>
 			</div>
 			<transition name="slide-fade">
-			<div id="enumber" 
-				class="section field to-show"
-				style="display: none;" 
-				v-show="!activeStudent">
-				<span class="label">Please select your E Number</span>
-				<div class="students">
-					<div class="student"
-						:id="'student_' + student"
-						v-for="student in students"
-						v-bind:class="{active: activeStudent==student, success: isStudentSubmitted(student)}"
-						@click="selectStudent(student)"
-						>
-						<img :id="'img_' + student" v-bind:src="'./img/students/' + student + '-150x150.jpg'" alt="" @load="fadeIn(student)">
-						<span>{{getFormattedENumber(student)}}</span>
+				<div id="enumber"
+					class="section field to-show"
+					style="display: none;"
+					v-show="!activeStudent">
+					<span class="label">Please select your E Number</span>
+					<div class="students">
+						<div class="student"
+							:id="'student_' + student"
+							v-for="student in students"
+							v-bind:class="{active: activeStudent==student, success: isStudentSubmitted(student)}"
+							@click="selectStudent(student)"
+							>
+							<img :id="'img_' + student" v-bind:src="'./img/students/' + student + '-150x150.jpg'" alt="" @load="fadeIn(student)">
+							<span>{{getFormattedENumber(student)}}</span>
+						</div>
 					</div>
 				</div>
-			</div>
 			</transition>
 			<div id="internship" class="section">
 				<h1 class="title">Training Information</h1>
 				<div class="field">
 					<span class="label">Training company</span>
-					<multiselect 
-						v-model="activeCompany" 
-						:options="companies"
-						tag-placeholder="Add this company"
-						placeholder="Search or type in your company"
-						:taggable="true"
-						@tag="addCompany"
-						></multiselect>
+					<multiselect
+					v-model="activeCompany"
+					:options="companies"
+					tag-placeholder="Add this company"
+					placeholder="Search or type in your company"
+					:taggable="true"
+					@tag="addCompany"
+					></multiselect>
 				</div>
 				<br>
 				<div class="field">
 					<span class="label">Skills used during training</span>
-					<multiselect 
-					v-model="skills_duringTraining" 
+					<multiselect
+					v-model="skills_duringTraining"
 					:options="skills"
 					:multiple="true"
 					tag-placeholder="Add this skill"
@@ -99,6 +95,15 @@
 					<i class="fa fa-star" :class="{'active': rating>=4}" @click="setCompanyRating(4)"></i>
 					<i class="fa fa-star" :class="{'active': rating>=5}" @click="setCompanyRating(5)"></i>
 				</div>
+				<br><br>
+				<div class="field">
+					<p class="label">Do you recommend this company to another student for their internship?
+						<div class="button" :class="{'is-primary': activeCompany_recommendToAnother}" @click="activeCompany_recommendToAnother = true">Yes</div> <div class="button" :class="{'is-primary': (activeCompany_recommendToAnother==false)}" @click="activeCompany_recommendToAnother = false">No</div>
+					</p>
+					<p class="label">Would you join this company after your degree?
+						<div class="button" :class="{'is-primary': activeCompany_willJoinAfterDegree}" @click="activeCompany_willJoinAfterDegree = true">Yes</div> <div class="button" :class="{'is-primary': (activeCompany_willJoinAfterDegree==false)}" @click="activeCompany_willJoinAfterDegree = false">No</div>
+					</p>
+				</div>
 			</div>
 			<div id="interviews" class="section">
 				<h1 class="title">Your Interviews</h1>
@@ -106,9 +111,9 @@
 					<span class="label">Interviews you applied (in <a href="https://www.google.lk/search?q=meaning+of+chronological" title="meaning of chronological" target="blank">chronological</a> order)</span>
 					<div class="interviews">
 						<div class="interview level" v-for="(interview, index) in interviews">
-							<multiselect 
+							<multiselect
 							class="interview-multiselect"
-							v-model="interview.company" 
+							v-model="interview.company"
 							:options="companies"
 							></multiselect>
 							<div class="interview-buttons">
@@ -118,9 +123,9 @@
 							</div>
 						</div>
 						<div class="interview level">
-							<multiselect 
+							<multiselect
 							class="interview-multiselect"
-							v-model="new_interview_company" 
+							v-model="new_interview_company"
 							:options="companies"
 							></multiselect>
 							<div class="interview-buttons">
@@ -131,17 +136,14 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
-
 			<div id="details" class="section">
 				<h1 class="title">Your Internship</h1>
-
 				<div class="attitudetohire">
 					<div class="field">
 						<span class="label">Why do you think they (the company) hired you?</span>
-						<multiselect 
-						v-model="attitudeToHire_selected" 
+						<multiselect
+						v-model="attitudeToHire_selected"
 						:options="attitudeToHire_list"
 						:multiple="true"
 						tag-placeholder="Add this attitude"
@@ -151,9 +153,7 @@
 						></multiselect>
 					</div>
 				</div>
-
 				<br>
-
 				<label class="label" style="margin-top: 20pt; margin-bottom: 20pt;">How do you rate yourself during the internship? (in your perspective)</label>
 				
 				<div class="field ratings inline">
@@ -201,7 +201,6 @@
 					<i class="fa fa-star" :class="{'active': ratingSoftskills>=5}" @click="setSoftskillsRating(5)"></i>
 				</div>
 			</div>
-
 			<div class="section">
 				<div @click="submitData()" class="button is-fullwidth is-primary is-medium"><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;Submit</div>
 			</div>
